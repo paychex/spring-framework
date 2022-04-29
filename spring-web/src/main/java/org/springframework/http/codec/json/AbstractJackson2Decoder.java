@@ -184,8 +184,7 @@ public abstract class AbstractJackson2Decoder extends Jackson2CodecSupport imple
 								return customizeReaderFromStream(objectReader, mimeType, elementType, hints)
 										.flatMap(reader -> {
 											try {
-												Object result = decode(dataBuffer, reader, hints);
-												return Mono.just(result);
+												return Mono.justOrEmpty(decode(dataBuffer, reader, hints));
 											}
 											catch (DecodingException ex) {
 												return Mono.error(ex);
